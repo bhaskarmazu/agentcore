@@ -4,11 +4,17 @@ from strands import Agent, tool
 import asyncio
 from strands.agent.conversation_manager.null_conversation_manager import NullConversationManager
 from bedrock_agentcore.runtime import BedrockAgentCoreApp
+from bedrock_agentcore.memory.integrations.strands.config import AgentCoreMemoryConfig
+from bedrock_agentcore.memory.integrations.strands.session_manager import AgentCoreMemorySessionManager
 from model.load import load_model
 from mcp_client.client import get_streamable_http_mcp_client
 
 app = BedrockAgentCoreApp()
 log = app.logger
+
+# Hardcoded for this learning exercise — in a real project this would come from
+# an environment variable or config file instead of being baked into the code.
+MEMORY_ID = "MyAgent_MyAgentMemory-f8at7t5Bw2"
 
 # Define a Streamable HTTP MCP Client
 mcp_clients = [get_streamable_http_mcp_client()]
@@ -55,18 +61,27 @@ def agent_factory():
             return cache[session_id]
         if len(cache) >= 128:
             cache.popitem(last=False)
+
+        memory_config = AgentCoreMemoryConfig(
+            memory_id=MEMORY_ID,
+            session_id=session_id,
+            actor_id="demo-user",  # hardcoded for now; Identity (a later lesson) makes this real per-user
+        )
+        session_manager = AgentCoreMemorySessionManager(agentcore_memory_config=memory_config)
+
         cache[session_id] = Agent(
             model=load_model(),
             system_prompt=DEFAULT_SYSTEM_PROMPT,
             tools=tools,
             conversation_manager=_make_conversation_manager(),
+            session_manager=session_manager,
             hooks=[
             ],
         )
         return cache[session_id]
     return get_or_create_agent
-get_or_create_agent = agent_factory()
 
+get_or_create_agent = agent_factory()
 
 def strip_trailing_tool_use(messages: Any) -> list[dict]:
     """Strip toolUse blocks from the tail until the last message has none."""

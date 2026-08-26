@@ -1,3 +1,23 @@
 {
-  "targets": {}
+  "targets": {
+    "default": {
+      "resources": {
+        "runtimes": {
+          "MyAgent": {
+            "runtimeId": "MyAgent_MyAgent-VRd8o09kF9",
+            "runtimeArn": "arn:aws:bedrock-agentcore:us-east-2:054119521068:runtime/MyAgent_MyAgent-VRd8o09kF9",
+            "roleArn": "arn:aws:iam::054119521068:role/AgentCore-MyAgent-default-ApplicationAgentMyAgentRu-Wbftrx641rUY"
+          }
+        },
+        "memories": {
+          "MyAgentMemory": {
+            "memoryId": "MyAgent_MyAgentMemory-nLlDqnHuze",
+            "memoryArn": "arn:aws:bedrock-agentcore:us-east-2:054119521068:memory/MyAgent_MyAgentMemory-nLlDqnHuze"
+          }
+        },
+        "stackName": "AgentCore-MyAgent-default",
+        "deployHash": "71ecf40299a0eeaf"
+      }
+    }
+  }
 }

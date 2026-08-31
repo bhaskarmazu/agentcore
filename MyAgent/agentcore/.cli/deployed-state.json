@@ -4,19 +4,19 @@
       "resources": {
         "runtimes": {
           "MyAgent": {
-            "runtimeId": "MyAgent_MyAgent-VRd8o09kF9",
-            "runtimeArn": "arn:aws:bedrock-agentcore:us-east-2:054119521068:runtime/MyAgent_MyAgent-VRd8o09kF9",
-            "roleArn": "arn:aws:iam::054119521068:role/AgentCore-MyAgent-default-ApplicationAgentMyAgentRu-Wbftrx641rUY"
+            "runtimeId": "MyAgent_MyAgent-NwnIqQ47LD",
+            "runtimeArn": "arn:aws:bedrock-agentcore:us-east-2:054119521068:runtime/MyAgent_MyAgent-NwnIqQ47LD",
+            "roleArn": "arn:aws:iam::054119521068:role/AgentCore-MyAgent-default-ApplicationAgentMyAgentRu-zbcGoOGclPqX"
           }
         },
         "memories": {
           "MyAgentMemory": {
-            "memoryId": "MyAgent_MyAgentMemory-nLlDqnHuze",
-            "memoryArn": "arn:aws:bedrock-agentcore:us-east-2:054119521068:memory/MyAgent_MyAgentMemory-nLlDqnHuze"
+            "memoryId": "MyAgent_MyAgentMemory-zWjsF72K98",
+            "memoryArn": "arn:aws:bedrock-agentcore:us-east-2:054119521068:memory/MyAgent_MyAgentMemory-zWjsF72K98"
           }
         },
         "stackName": "AgentCore-MyAgent-default",
-        "deployHash": "71ecf40299a0eeaf"
+        "deployHash": "7fdb242d507f6385"
       }
     }
   }

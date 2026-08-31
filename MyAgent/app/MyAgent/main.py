@@ -15,7 +15,7 @@ log = app.logger
 
 # Hardcoded for this learning exercise — in a real project this would come from
 # an environment variable or config file instead of being baked into the code.
-MEMORY_ID = "MyAgent_MyAgentMemory-nLlDqnHuze"
+MEMORY_ID = "MyAgent_MyAgentMemory-zWjsF72K98"
 
 # Define a Streamable HTTP MCP Client
 mcp_clients = [get_streamable_http_mcp_client()]
@@ -45,6 +45,18 @@ for mcp_client in mcp_clients:
     if mcp_client:
         tools.append(mcp_client)
 
+_extra_tools_cache = None
+
+def _get_extra_tools():
+    global _extra_tools_cache
+    if _extra_tools_cache is None:
+        from strands_tools.code_interpreter import AgentCoreCodeInterpreter
+        from strands_tools.browser import AgentCoreBrowser
+
+        code_interpreter_tool = AgentCoreCodeInterpreter(region="us-east-2")
+        browser_tool = AgentCoreBrowser(region="us-east-2", identifier="aws.browser.v1")
+        _extra_tools_cache = [code_interpreter_tool.code_interpreter, browser_tool.browser]
+    return _extra_tools_cache
 
 def _make_conversation_manager():
     return NullConversationManager()
@@ -74,7 +86,7 @@ def agent_factory():
         cache[cache_key] = Agent(
             model=load_model(),
             system_prompt=DEFAULT_SYSTEM_PROMPT,
-            tools=tools,
+            tools=tools + _get_extra_tools(),
             conversation_manager=_make_conversation_manager(),
             session_manager=session_manager,
             hooks=[
